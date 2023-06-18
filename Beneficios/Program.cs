@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Beneficios.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BancoDeDados>(
@@ -15,6 +16,59 @@ app.UseCors();
 
 app.MapGet("/", () => "Hala Madrid!");
 
+app.MapPost("/cadastrarBeneficio", async (BancoDeDados bd, HttpContext context) =>
+{
+    try
+    {
+        var form = await context.Request.ReadFormAsync();
+
+        var nome = form["nome"];
+        var categoria = form["categoria"];
+        var imagem = form.Files["imagem"];
+        var descricao = form["descricao"];
+
+        var nomeArquivo = Guid.NewGuid().ToString() + Path.GetExtension(imagem.FileName);
+        var caminhoArquivo = Path.Combine("Uploads", nomeArquivo);
+
+        using (var stream = new FileStream(caminhoArquivo, FileMode.Create))
+        {
+            await imagem.CopyToAsync(stream);
+        }
+
+        // try
+        // {
+        //     BlobStorageUploader uploader = new BlobStorageUploader();
+        //     uploader.UploadImageToBlob(caminhoArquivo, nomeArquivo);
+        // }
+        // catch (Exception ex)
+        // {
+        //     Console.WriteLine($"Erro ao fazer upload do blob: {ex.Message}");
+        //     // Lidar com o erro de upload do blob (como registrar, notificar, etc.)
+        // }
+
+        var beneficio = new Beneficio
+        {
+            Id = 0,
+            Categoria = int.Parse(categoria),
+            Nome = nome,
+            Descricao = descricao,
+            urlImage = caminhoArquivo
+        };
+
+        bd.Add(beneficio);
+        await bd.SaveChangesAsync();
+
+        return Results.Ok(beneficio);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ocorreu um erro inesperado: {ex.Message}");
+        return Results.StatusCode(500);
+    }
+});
+
+
+
 app.MapGet("/beneficios/", async (BancoDeDados bd) =>
     await bd.beneficios.ToListAsync());
 
@@ -25,6 +79,13 @@ app.MapGet("/beneficios/{id}", async (int id, BancoDeDados bd) =>
 
 
 app.MapPost("/beneficios/", async (BancoDeDados bd, Beneficio beneficio) =>
+{
+    bd.Add(beneficio);
+    await bd.SaveChangesAsync();
+    return Results.Ok(beneficio);
+});
+
+app.MapPost("/cadastrarBeneficios/", async (BancoDeDados bd, Beneficio beneficio) =>
 {
     bd.Add(beneficio);
     await bd.SaveChangesAsync();
