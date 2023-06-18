@@ -6,17 +6,15 @@ using Azure;
 namespace Beneficios.Services;
 public class BlobStorageUploader
 {
-  private const string connectionString = "";
-  private const string containerName = "";
-
-  public void UploadImageToBlob(string imagePath, string blobName)
+  private const string connectionString = "STRING DE CONEXÃO COM O AZURE";
+  private const string containerName = "CONTAINER";
+  public void UploadImageToBlob(string imagePath)
   {
     try
     {
       BlobServiceClient blobServiceClient = new BlobServiceClient(connectionString);
       BlobContainerClient containerClient = blobServiceClient.GetBlobContainerClient(containerName);
-      BlobClient blobClient = containerClient.GetBlobClient(blobName);
-
+      BlobClient blobClient = containerClient.GetBlobClient(imagePath.Substring(imagePath.IndexOf("\\") + 1));
       using (FileStream fs = File.OpenRead(imagePath))
       {
         blobClient.Upload(fs, true);
