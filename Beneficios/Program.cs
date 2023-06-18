@@ -39,25 +39,24 @@ app.MapPost("/cadastrarBeneficio", async (BancoDeDados bd, HttpContext context) 
     {
       BlobStorageUploader uploader = new BlobStorageUploader();
       uploader.UploadImageToBlob(filePath);
+      var beneficio = new Beneficio
+      {
+        Id = 0,
+        Categoria = int.Parse(categoria),
+        Nome = nome,
+        Descricao = descricao,
+        urlImage = "https://beneficiosmourastorage.blob.core.windows.net/content-beneficios-moura/" + filePath.Substring(filePath.IndexOf("\\") + 1)
+      };
+
+      bd.Add(beneficio);
+      await bd.SaveChangesAsync();
+      return Results.Ok(beneficio);
     }
     catch (Exception ex)
     {
       Console.WriteLine($"Erro ao fazer upload do blob: {ex.Message}");
+      return Results.StatusCode(500);
     }
-
-    var beneficio = new Beneficio
-    {
-      Id = 0,
-      Categoria = int.Parse(categoria),
-      Nome = nome,
-      Descricao = descricao,
-      urlImage = filePath
-    };
-
-    bd.Add(beneficio);
-    await bd.SaveChangesAsync();
-
-    return Results.Ok(beneficio);
   }
   catch (Exception ex)
   {
