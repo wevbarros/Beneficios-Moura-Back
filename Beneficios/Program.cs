@@ -90,29 +90,62 @@ app.MapPost("/cadastrarBeneficios/", async (BancoDeDados bd, Beneficio beneficio
   return Results.Ok(beneficio);
 });
 
-app.MapPut("/beneficios/{id}", async (int id, BancoDeDados bd, Beneficio inputBen) =>
+app.MapPut("/beneficios/{id}", async (int id, BancoDeDados bd, HttpContext context) =>
 {
-  var beneficio = await bd.beneficios.FindAsync(id);
-  if (beneficio == null) return Results.NotFound();
+  try
+  {
+    var form = await context.Request.ReadFormAsync();
 
-  beneficio.Nome = inputBen.Nome;
-  beneficio.Categoria = inputBen.Categoria;
-  beneficio.Descricao = inputBen.Descricao;
-  beneficio.urlImage = inputBen.urlImage;
+    var nome = form["nome"];
+    var categoria = form["categoria"];
+    var imagem = form.Files["imagem"];
+    var descricao = form["descricao"];
 
-  await bd.SaveChangesAsync();
-  return Results.NoContent();
+    bool isNomeVazio = string.IsNullOrEmpty(nome);
+    bool isCategoriaVazia = string.IsNullOrEmpty(categoria);
+    bool isImagemVazia = imagem == null || imagem.Length == 0;
+    bool isDescricaoVazia = string.IsNullOrEmpty(descricao);
+
+    try
+    {
+      var beneficio = await bd.beneficios.FindAsync(id);
+      if (!isImagemVazia)
+      {
+        var fileName = Guid.NewGuid().ToString() + Path.GetExtension(imagem.FileName);
+        var filePath = Path.Combine("Uploads", fileName);
+
+        using (var stream = new FileStream(filePath, FileMode.Create))
+        {
+          await imagem.CopyToAsync(stream);
+        }
+        BlobStorageUploader uploader = new BlobStorageUploader();
+        uploader.UploadImageToBlob(filePath);
+        beneficio.urlImage = "https://beneficiosmourastorage.blob.core.windows.net/content-beneficios-moura/" + filePath.Substring(filePath.IndexOf("\\") + 1);
+      }
+
+      if (!isNomeVazio) beneficio.Nome = nome;
+      if (!isCategoriaVazia) beneficio.Categoria = int.Parse(categoria);
+      if (!isDescricaoVazia) beneficio.Descricao = descricao;
+
+      await bd.SaveChangesAsync();
+      return Results.Ok(beneficio);
+    }
+    catch (Exception ex)
+    {
+      Console.WriteLine($"Erro ao fazer upload do blob: {ex.Message}");
+      return Results.StatusCode(500);
+    }
+  }
+  catch (Exception ex)
+  {
+    Console.WriteLine($"Ocorreu um erro inesperado: {ex.Message}");
+    return Results.StatusCode(500);
+  }
 });
 
-app.MapPut("/beneficios/img/{id}", async (int id, BancoDeDados bd, Beneficio inputBen) =>
+app.MapPut("/beneficios/img/{id}", async (int id, BancoDeDados bd, HttpContext context) =>
 {
-  var beneficio = await bd.beneficios.FindAsync(id);
-  if (beneficio == null) return Results.NotFound();
 
-  beneficio.urlImage = inputBen.urlImage;
-
-  await bd.SaveChangesAsync();
-  return Results.NoContent();
 });
 
 app.MapPut("/beneficios/desc/{id}", async (int id, BancoDeDados bd, Beneficio inputBen) =>

@@ -7,8 +7,8 @@ using Azure;
 namespace Beneficios.Services;
 public class BlobStorageUploader
 {
-  private const string connectionString = "STRING DE CONEXÃO COM O AZURE";
-  private const string containerName = "CONTAINER";
+  private const string connectionString = "";
+  private const string containerName = "";
   public void UploadImageToBlob(string imagePath)
   {
     try
