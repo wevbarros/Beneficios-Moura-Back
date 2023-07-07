@@ -1,5 +1,13 @@
 using Microsoft.EntityFrameworkCore;
 using Beneficios.Services;
+using Beneficios.Utils;
+using System.Text.Json;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
+using Microsoft.IdentityModel.Tokens;
+using System;
+
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BancoDeDados>(
@@ -15,6 +23,17 @@ var app = builder.Build();
 app.UseCors();
 
 app.MapGet("/", () => "Hala Madrid!");
+
+app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
+{
+  var requestBody = await context.Request.ReadFromJsonAsync<LoginRequest>();
+
+  var matricula = requestBody.Matricula;
+
+  var token = TokenGenerator.GenerateToken("1", "email", matricula, "elliot");
+
+  return Results.Ok(new { token });
+});
 
 app.MapPost("/cadastrarBeneficio", async (BancoDeDados bd, HttpContext context) =>
 {
