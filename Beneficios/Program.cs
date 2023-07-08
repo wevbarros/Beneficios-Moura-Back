@@ -26,13 +26,39 @@ app.MapGet("/", () => "Hala Madrid!");
 
 app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
 {
+
+  if (!context.Request.HasJsonContentType())
+  {
+    return Results.BadRequest();
+  }
+  
   var requestBody = await context.Request.ReadFromJsonAsync<LoginRequest>();
 
-  var matricula = requestBody.Matricula;
-
-  var token = TokenGenerator.GenerateToken("1", "email", matricula, "elliot");
-
-  return Results.Ok(new { token });
+  if (requestBody == null)
+  {
+    return Results.BadRequest();
+  }
+  else
+  {
+    if (requestBody.Matricula == null || requestBody.Password == null)
+    {
+      return Results.BadRequest();
+    }
+    else
+    {
+      try
+      {
+        var matricula = requestBody.Matricula;
+        var token = TokenGenerator.GenerateToken("1", "email", matricula, "elliot");
+        return Results.Ok(new { token });
+      }
+      catch (Exception ex)
+      {
+        Console.WriteLine($"Erro ao gerar token: {ex.Message}");
+        return Results.StatusCode(500);
+      }
+    }
+  }
 });
 
 app.MapPost("/cadastrarBeneficio", async (BancoDeDados bd, HttpContext context) =>
