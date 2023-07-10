@@ -26,7 +26,7 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
   {
     return Results.BadRequest();
   }
-  
+
   var requestBody = await context.Request.ReadFromJsonAsync<LoginRequest>();
 
   if (requestBody == null)
@@ -44,13 +44,50 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
       try
       {
         var matricula = requestBody.Matricula;
-        var token = TokenGenerator.GenerateToken("1", "email", matricula, "elliot");
+        var token = JWT.GenerateToken("1", "email", matricula, "elliot");
         return Results.Ok(new { token });
       }
       catch (Exception ex)
       {
         Console.WriteLine($"Erro ao gerar token: {ex.Message}");
         return Results.StatusCode(500);
+      }
+    }
+  }
+});
+
+app.MapPost("/refreshToken", (BancoDeDados dbContext, HttpContext context) =>
+{
+  if (!context.Request.Headers.ContainsKey("Authorization"))
+  {
+    return Results.BadRequest();
+  }
+  var authorizationHeader = context.Request.Headers["Authorization"].ToString();
+  bool isValid = JWT.ValidateToken(authorizationHeader);
+  if (!isValid)
+  {
+    return Results.Unauthorized();
+  }
+  else
+  {
+    var decodedToken = JWT.DecodeToken(authorizationHeader);
+    var user = System.Text.Json.JsonSerializer.Deserialize<User>(decodedToken.Claims.First().Value);
+
+    if (user == null)
+    {
+      return Results.BadRequest();
+    }
+    else
+    {
+
+      if (user.id == null || user.matricula == null || user.email == null || user.nome == null)
+      {
+        return Results.BadRequest();
+      }
+      else
+      {
+        var token = JWT.GenerateToken(user.id, user.email, user.matricula, user.nome);
+        return Results.Ok(new { token });
       }
     }
   }

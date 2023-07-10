@@ -64,8 +64,6 @@ C:\Users\cgti\Documents\GitHub\Beneficios\obj\Debug\net7.0\Beneficios.csproj.Cop
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\obj\Debug\net7.0\Beneficios.dll
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\obj\Debug\net7.0\refint\Beneficios.dll
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\obj\Debug\net7.0\Beneficios.pdb
-C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\appsettings.Development.json
-C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\appsettings.json
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\Beneficios.exe
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\Beneficios.deps.json
 C:\Users\miros\Documents\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\Beneficios.runtimeconfig.json
