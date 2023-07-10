@@ -1,13 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Beneficios.Services;
 using Beneficios.Utils;
-using System.Text.Json;
-using System.IdentityModel.Tokens.Jwt;
-using System.Security.Claims;
-using System.Text;
-using Microsoft.IdentityModel.Tokens;
-using System;
-
+// using Beneficios.Middleware;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BancoDeDados>(
@@ -21,6 +15,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 
 var app = builder.Build();
 app.UseCors();
+// app.UseAuthorizationMiddleware();
 
 app.MapGet("/", () => "Hala Madrid!");
 

@@ -9,10 +9,9 @@ public static class TokenGenerator
 {
   public static string GenerateToken(string id, string email, string matricula, string nome)
   {
-    var chaveSecreta = ("sua-chave-secreta-com-pelo-menos-32-bytes");
-    var emissor = "seu-emissor";
-    var publicoAlvo = "seu-publico-alvo";
-    var expiracao = DateTime.UtcNow.AddHours(1);
+    var secretWord = ("sua-chave-secretWorda-com-pelo-menos-32-bytes");
+    var issuer = "Moura pra você";
+    var expires = DateTime.UtcNow.AddHours(1);
     var user = new
     {
       id = id,
@@ -25,14 +24,14 @@ public static class TokenGenerator
     {
       new Claim("user", System.Text.Json.JsonSerializer.Serialize(user))
     };
-    var chave = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(chaveSecreta));
-    var credenciais = new SigningCredentials(chave, SecurityAlgorithms.HmacSha256);
+    var key = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(secretWord));
+    var credentials = new SigningCredentials(key, SecurityAlgorithms.HmacSha256);
     var token = new JwtSecurityToken(
-        emissor,
-        publicoAlvo,
-        claims,
-        expires: expiracao,
-        signingCredentials: credenciais
+        issuer: issuer,
+        audience: null,
+        claims: claims,
+        expires: expires,
+        signingCredentials: credentials
     );
     var tokenJwt = new JwtSecurityTokenHandler().WriteToken(token);
 
