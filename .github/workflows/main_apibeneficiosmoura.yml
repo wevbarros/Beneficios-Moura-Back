@@ -21,7 +21,10 @@ jobs:
         with:
           dotnet-version: '7.x'
           include-prerelease: true
-
+        
+      - name: Acessar a pasta
+      - run: cd Beneficios
+      
       - name: Build with dotnet
         run: dotnet build --configuration Release
 
