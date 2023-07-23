@@ -14,7 +14,8 @@
       "launchBrowser": true,
       "applicationUrl": "http://localhost:5218",
       "environmentVariables": {
-        "ASPNETCORE_ENVIRONMENT": "Development"
+        "ASPNETCORE_ENVIRONMENT": "Development",
+        "SECRETE_KEY": "sua-chave-secreta-com-pelo-menos-32-bytes"
       }
     },
     "https": {

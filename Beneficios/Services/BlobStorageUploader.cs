@@ -7,8 +7,8 @@ using Azure;
 namespace Beneficios.Services;
 public class BlobStorageUploader
 {
-  private const string connectionString = "";
-  private const string containerName = "";
+  private const string connectionString = "DefaultEndpointsProtocol=https;AccountName=beneficiosmourastorage;AccountKey=/cNM+V96Eiz00cDERmAziHNfn4U96kPAnvoEkJmmSAyNm7XfzOseCw/B3xNRc2cbwo66U5RVXv+j+AStSa/T5g==;EndpointSuffix=core.windows.net";
+  private const string containerName = "content-beneficios-moura";
   public void UploadImageToBlob(string imagePath)
   {
     try
