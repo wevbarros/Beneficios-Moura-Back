@@ -2,6 +2,11 @@ using Microsoft.EntityFrameworkCore;
 using Beneficios.Services;
 using Beneficios.Utils;
 
+using System;
+using System.Net.Http;
+using System.Threading.Tasks;
+using System.Text;
+
 var server = Environment.GetEnvironmentVariable("DB_SERVER") ?? "sqlserver-gpm.database.windows.net";
 var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "1433";
 var user = Environment.GetEnvironmentVariable("DB_USER") ?? "elliot";
@@ -19,12 +24,11 @@ builder.Services.AddDbContext<BancoDeDados>(options => options.UseSqlServer(conn
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
-    builder.AllowAnyOrigin().AllowAnyHeader();
+  builder.AllowAnyOrigin().AllowAnyHeader();
 }));
 
 var app = builder.Build();
 app.UseCors();
-// app.UseAuthorizationMiddleware();
 
 app.MapGet("/", () => "Hala Madrid!");
 
@@ -53,8 +57,21 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
       try
       {
         var matricula = requestBody.Matricula;
-        var token = JWT.GenerateToken("1", "email", matricula, "elliot");
-        return Results.Ok(new { token });
+        var password = requestBody.Password;
+
+        var authService = new AuthService();
+        var response = await authService.AuthenticateAsync(matricula, password);
+        Console.WriteLine("Resposta: " + response);
+
+        if (response)
+        {
+          var token = JWT.GenerateToken("1", "mrrobot@fsociety.net", matricula, "elliot"); //Aqui deverão ser os dodos do banco
+          return Results.Ok(new { token });
+        }
+        else
+        {
+          return Results.Unauthorized();
+        }
       }
       catch (Exception ex)
       {
