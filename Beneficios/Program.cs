@@ -10,7 +10,7 @@ using System.Text;
 var server = Environment.GetEnvironmentVariable("DB_SERVER") ?? "sqlserver-gpm.database.windows.net";
 var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "1433";
 var user = Environment.GetEnvironmentVariable("DB_USER") ?? "elliot";
-var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "";
+var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "Oi@12345";
 var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "sqldb-teste-beneficios";
 
 var connectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
@@ -116,6 +116,22 @@ app.MapPost("/refreshToken", (BancoDeDados dbContext, HttpContext context) =>
         return Results.Ok(new { token });
       }
     }
+  }
+});
+
+app.MapPost("/verifyToken", (HttpContext context) =>
+{
+  if (!context.Request.Headers.ContainsKey("Authorization"))
+  {
+    return Results.BadRequest();
+  }
+  var authorizationHeader = context.Request.Headers["Authorization"].ToString();
+  bool isValid = JWT.ValidateToken(authorizationHeader);
+  if (!isValid)
+  {
+    return Results.Unauthorized();
+  } else {
+    return Results.Ok();
   }
 });
 
