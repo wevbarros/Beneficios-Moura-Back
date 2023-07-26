@@ -1,11 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Beneficios.Services;
 using Beneficios.Utils;
-
-using System;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Text;
+using Beneficios.Middleware;
 
 var server = Environment.GetEnvironmentVariable("DB_SERVER") ?? "sqlserver-gpm.database.windows.net";
 var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "1433";
@@ -29,6 +25,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 
 var app = builder.Build();
 app.UseCors();
+app.UseMiddleware<JwtMiddleware>();
 
 app.MapGet("/", () => "Hala Madrid!");
 
@@ -130,7 +127,9 @@ app.MapPost("/verifyToken", (HttpContext context) =>
   if (!isValid)
   {
     return Results.Unauthorized();
-  } else {
+  }
+  else
+  {
     return Results.Ok();
   }
 });
