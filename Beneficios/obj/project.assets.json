@@ -3920,11 +3920,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\miros\\Documents\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
+      "projectUniqueName": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
       "projectName": "Beneficios",
-      "projectPath": "C:\\Users\\miros\\Documents\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
+      "projectPath": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
       "packagesPath": "C:\\Users\\miros\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\miros\\Documents\\Node\\Beneficios-Moura-Back\\Beneficios\\obj\\",
+      "outputPath": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\miros\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -3933,7 +3933,6 @@
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files\\dotnet\\sdk\\7.0.306\\Sdks\\Microsoft.NET.Sdk.Web\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -4004,7 +4003,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.306\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\7.0.401\\RuntimeIdentifierGraph.json"
       }
     }
   }
