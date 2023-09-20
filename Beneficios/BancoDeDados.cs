@@ -1,7 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 public class BancoDeDados : DbContext
 {
-    public BancoDeDados (DbContextOptions<BancoDeDados> options)
-        : base(options) {}
-    public DbSet<Beneficio>? beneficios {get;set;}
+        public DbSet<Beneficio>? beneficios {get;set;}
+
+        public BancoDeDados(DbContextOptions<BancoDeDados> options) : base(options) {}
+
+    protected override void OnConfiguring(DbContextOptionsBuilder options) {}
 }
