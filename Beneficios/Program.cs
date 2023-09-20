@@ -2,12 +2,12 @@ using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BancoDeDados>(
-    options => options.UseSqlite("Data Source = bancoDeDados.db")
+    options => options.UseSqlServer(builder.Configuration.GetConnectionString("DataBase")) 
 );
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
-    builder.AllowAnyOrigin().AllowAnyHeader();
+    builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET", "POST", "PUT", "DELETE").AllowCredentials();
 }));
 
 var app = builder.Build();
