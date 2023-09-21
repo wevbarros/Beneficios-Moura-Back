@@ -359,3 +359,4 @@ C:\Users\20211ewbj0299\Documents\AmbientesSeguros\Beneficios\obj\Debug\net7.0\Be
 C:\Users\20211ewbj0299\Documents\AmbientesSeguros\Beneficios\obj\Debug\net7.0\Beneficios.genruntimeconfig.cache
 C:\Users\20211ewbj0299\Documents\AmbientesSeguros\Beneficios\obj\Debug\net7.0\ref\Beneficios.dll
 C:\Users\20211ewbj0299\Documents\AmbientesSeguros\Beneficios\bin\Debug\net7.0\appsettings.json
+C:\Users\miros\OneDrive\Documentos\Node\Beneficios-Moura-Back\Beneficios\bin\Debug\net7.0\appsettings.json

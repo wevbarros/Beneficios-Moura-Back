@@ -3916,26 +3916,24 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\20211ewbj0299\\.nuget\\packages\\": {}
+    "C:\\Users\\miros\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj",
+      "projectUniqueName": "c:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
       "projectName": "Beneficios",
-      "projectPath": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj",
-      "packagesPath": "C:\\Users\\20211ewbj0299\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\obj\\",
+      "projectPath": "c:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
+      "packagesPath": "C:\\Users\\miros\\.nuget\\packages\\",
+      "outputPath": "c:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\20211ewbj0299\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+        "C:\\Users\\miros\\AppData\\Roaming\\NuGet\\NuGet.Config"
       ],
       "originalTargetFrameworks": [
         "net7.0"
       ],
       "sources": {
-        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
