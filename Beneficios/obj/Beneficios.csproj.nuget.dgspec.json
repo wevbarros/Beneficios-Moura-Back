@@ -1,25 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj": {}
+    "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj": {}
   },
   "projects": {
-    "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj": {
+    "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
+        "projectUniqueName": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj",
         "projectName": "Beneficios",
-        "projectPath": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
-        "packagesPath": "C:\\Users\\miros\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\obj\\",
+        "projectPath": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\Beneficios.csproj",
+        "packagesPath": "C:\\Users\\20211ewbj0299\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\20211ewbj0299\\Documents\\AmbientesSeguros\\Beneficios\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\miros\\AppData\\Roaming\\NuGet\\NuGet.Config"
+          "C:\\Users\\20211ewbj0299\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -41,6 +43,10 @@
             "Azure.Storage.Blobs": {
               "target": "Package",
               "version": "[12.16.0, )"
+            },
+            "Microsoft.EntityFrameworkCore.Analyzers": {
+              "target": "Package",
+              "version": "[7.0.11, )"
             },
             "Microsoft.EntityFrameworkCore.Design": {
               "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",

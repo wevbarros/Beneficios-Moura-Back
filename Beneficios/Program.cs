@@ -2,25 +2,29 @@ using Microsoft.EntityFrameworkCore;
 using Beneficios.Services;
 using Beneficios.Utils;
 using Beneficios.Middleware;
+using Microsoft.Extensions.Configuration;
 
-var server = Environment.GetEnvironmentVariable("DB_SERVER") ?? "sqlserver-gpm.database.windows.net";
-var port = Environment.GetEnvironmentVariable("DB_PORT") ?? "1433";
-var user = Environment.GetEnvironmentVariable("DB_USER") ?? "elliot";
-var password = Environment.GetEnvironmentVariable("DB_PASSWORD") ?? "Oi@12345";
-var database = Environment.GetEnvironmentVariable("DB_DATABASE") ?? "sqldb-teste-beneficios";
+var builder = WebApplication.CreateBuilder(args);
 
-var connectionString = $"Server={server},{port};Initial Catalog={database};User ID={user};Password={password}";
+// Configuração do IConfiguration para acessar o appsettings.json
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(builder.Environment.ContentRootPath)
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+
+// Obtém a string de conexão do IConfiguration
+var connectionString = configuration.GetConnectionString("DataBase");
 
 var options = new DbContextOptionsBuilder<BancoDeDados>()
     .UseSqlServer(connectionString)
     .Options;
 
-var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddDbContext<BancoDeDados>(options => options.UseSqlServer(connectionString));
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
-  builder.AllowAnyOrigin().AllowAnyHeader();
+    builder.AllowAnyOrigin().AllowAnyHeader();
 }));
 
 var app = builder.Build();

@@ -9,6 +9,7 @@
       "Beneficios/1.0.0": {
         "dependencies": {
           "Azure.Storage.Blobs": "12.16.0",
+          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.11",
           "Microsoft.EntityFrameworkCore.Design": "7.0.3",
           "Microsoft.EntityFrameworkCore.SqlServer": "7.0.9",
           "Microsoft.EntityFrameworkCore.Sqlite": "7.0.3",
@@ -174,7 +175,7 @@
       "Microsoft.EntityFrameworkCore/7.0.9": {
         "dependencies": {
           "Microsoft.EntityFrameworkCore.Abstractions": "7.0.9",
-          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.9",
+          "Microsoft.EntityFrameworkCore.Analyzers": "7.0.11",
           "Microsoft.Extensions.Caching.Memory": "7.0.0",
           "Microsoft.Extensions.DependencyInjection": "7.0.0",
           "Microsoft.Extensions.Logging": "7.0.0"
@@ -194,7 +195,7 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Analyzers/7.0.9": {},
+      "Microsoft.EntityFrameworkCore.Analyzers/7.0.11": {},
       "Microsoft.EntityFrameworkCore.Design/7.0.3": {
         "dependencies": {
           "Humanizer.Core": "2.14.1",
@@ -927,12 +928,12 @@
       "path": "microsoft.entityframeworkcore.abstractions/7.0.9",
       "hashPath": "microsoft.entityframeworkcore.abstractions.7.0.9.nupkg.sha512"
     },
-    "Microsoft.EntityFrameworkCore.Analyzers/7.0.9": {
+    "Microsoft.EntityFrameworkCore.Analyzers/7.0.11": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-VvqFD3DdML6LhPCAR/lG2xNX66juylC8v57yUAAYnUSdEUOMRi3lNoT4OrNdG0rere3UOQPhvVl5FH2QdyoF8Q==",
-      "path": "microsoft.entityframeworkcore.analyzers/7.0.9",
-      "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.9.nupkg.sha512"
+      "sha512": "sha512-Qexum5safSSfijx6P1QSq5bVJPPTM/uf7lQmpL/shkiozEC/0FzqNaVUfFpbNN8zsO1jMFYbeDMF4cxJMlTT9w==",
+      "path": "microsoft.entityframeworkcore.analyzers/7.0.11",
+      "hashPath": "microsoft.entityframeworkcore.analyzers.7.0.11.nupkg.sha512"
     },
     "Microsoft.EntityFrameworkCore.Design/7.0.3": {
       "type": "package",
