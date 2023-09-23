@@ -5,9 +5,10 @@ using System.Text;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Beneficios.Utils;
+
 public static class JWT
 {
-  public static string GenerateToken(string id, string email, string matricula, string nome)
+  public static string GenerateToken(int id, string email, string matricula, string nome, int CodLevel)
   {
     var secretWord = ("sua-chave-secreta-com-pelo-menos-32-bytes");
     var issuer = "Moura pra você";
@@ -17,7 +18,8 @@ public static class JWT
       id = id,
       email = email,
       matricula = matricula,
-      nome = nome
+      nome = nome,
+      codLevel = CodLevel
     };
 
     var claims = new[]

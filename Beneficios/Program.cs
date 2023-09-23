@@ -24,7 +24,7 @@ builder.Services.AddDbContext<BancoDeDados>(options => options.UseSqlServer(conn
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
-    builder.AllowAnyOrigin().AllowAnyHeader();
+  builder.AllowAnyOrigin().AllowAnyHeader();
 }));
 
 var app = builder.Build();
@@ -66,7 +66,8 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
 
         if (response)
         {
-          var token = JWT.GenerateToken("1", "mrrobot@fsociety.net", matricula, "elliot"); //Aqui deverão ser os dodos do banco
+          User user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == matricula);
+          var token = JWT.GenerateToken(user.Id, user.Email, user.Matricula, user.Nome, user.CodLevel);
           return Results.Ok(new { token });
         }
         else
@@ -107,13 +108,13 @@ app.MapPost("/refreshToken", (BancoDeDados dbContext, HttpContext context) =>
     else
     {
 
-      if (user.id == null || user.matricula == null || user.email == null || user.nome == null)
+      if (user.Id == null || user.Matricula == null || user.Email == null || user.Nome == null)
       {
         return Results.BadRequest();
       }
       else
       {
-        var token = JWT.GenerateToken(user.id, user.email, user.matricula, user.nome);
+        var token = JWT.GenerateToken(user.Id, user.Email, user.Matricula, user.Nome, user.CodLevel);
         return Results.Ok(new { token });
       }
     }
