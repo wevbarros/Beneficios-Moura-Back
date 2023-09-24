@@ -49,7 +49,7 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
   }
   else
   {
-    if (requestBody.Matricula == null || requestBody.Password == null)
+    if (requestBody.Email == null || requestBody.Password == null)
     {
       return Results.BadRequest();
     }
@@ -57,16 +57,16 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
     {
       try
       {
-        var matricula = requestBody.Matricula;
+        var email = requestBody.Email;
         var password = requestBody.Password;
 
         var authService = new AuthService();
-        var response = await authService.AuthenticateAsync(matricula, password);
+        var response = await authService.AuthenticateAsync(email, password);
         Console.WriteLine("Resposta: " + response);
 
         if (response)
         {
-          User user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == matricula);
+          User user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
           var token = JWT.GenerateToken(user.Id, user.Email, user.Matricula, user.Nome, user.CodLevel);
           return Results.Ok(new { token });
         }
