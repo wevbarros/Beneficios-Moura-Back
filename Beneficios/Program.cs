@@ -24,7 +24,7 @@ builder.Services.AddDbContext<BancoDeDados>(options => options.UseSqlServer(conn
 
 builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 {
-  builder.AllowAnyOrigin().AllowAnyHeader();
+  builder.AllowAnyOrigin().AllowAnyHeader().WithMethods("GET", "POST", "PUT", "DELETE");
 }));
 
 var app = builder.Build();
