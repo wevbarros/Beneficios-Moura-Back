@@ -188,6 +188,81 @@ app.MapPost("/cadastrarBeneficio", async (BancoDeDados bd, HttpContext context) 
   }
 });
 
+app.MapPut("/editarBeneficio/{id}", async (BancoDeDados bd, HttpContext context) =>
+{
+    try
+    {
+        // Obtenha o ID do benefício a ser atualizado a partir dos parâmetros da rota
+        if (!int.TryParse(context.Request.RouteValues["id"].ToString(), out int beneficioId))
+        {
+            return Results.BadRequest("ID de benefício inválido.");
+        }
+
+        // Consulte o banco de dados para encontrar o benefício com o ID fornecido
+        var beneficio = await bd.beneficios.FindAsync(beneficioId);
+        if (beneficio == null)
+        {
+            return Results.NotFound($"Benefício com ID {beneficioId} não encontrado.");
+        }
+
+        var form = await context.Request.ReadFormAsync();
+
+        // Atualize os campos do benefício com os novos valores do formulário, se fornecidos
+        if (form.ContainsKey("nome"))
+        {
+            beneficio.Nome = form["nome"];
+        }
+
+        if (form.ContainsKey("categoria"))
+        {
+            beneficio.Categoria = int.Parse(form["categoria"]);
+        }
+
+        if (form.ContainsKey("descricao"))
+        {
+            beneficio.Descricao = form["descricao"];
+        }
+
+        // Verifique se uma nova imagem foi fornecida no formulário
+        var novaImagem = form.Files.FirstOrDefault(file => file.Name == "imagem");
+        if (novaImagem != null && novaImagem.Length > 0)
+        {
+            // Faça o upload da nova imagem e atualize o campo urlImage do benefício
+            var fileName = Guid.NewGuid().ToString() + Path.GetExtension(novaImagem.FileName);
+            var filePath = Path.Combine("Uploads", fileName);
+
+            using (var stream = new FileStream(filePath, FileMode.Create))
+            {
+                await novaImagem.CopyToAsync(stream);
+            }
+
+            try
+            {
+                BlobStorageUploader uploader = new BlobStorageUploader();
+                uploader.UploadImageToBlob(filePath);
+                beneficio.urlImage = "https://beneficiosmourastorage.blob.core.windows.net/content-beneficios-moura/" + filePath.Substring(filePath.IndexOf("\\") + 1);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine($"Erro ao fazer upload do blob: {ex.Message}");
+                return Results.StatusCode(500);
+            }
+        }
+
+        // Atualize o benefício no banco de dados
+        bd.Update(beneficio);
+        await bd.SaveChangesAsync();
+
+        return Results.Ok(beneficio);
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Ocorreu um erro inesperado: {ex.Message}");
+        return Results.StatusCode(500);
+    }
+});
+
+
 
 
 app.MapGet("/beneficios/", async (BancoDeDados bd) =>
