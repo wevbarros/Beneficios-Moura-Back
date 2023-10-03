@@ -1,8 +1,6 @@
 public class User {
-    public int Id { get; set; }
-    public string? Email { get; set; }
-    public string? Matricula { get; set; }
-    public string? Nome { get; set; }
-    public int CodLevel { get; set; }
-    public Level Level { get; set; }
+    public string? id { get; set; }
+    public string? email { get; set; }
+    public string? matricula { get; set; }
+    public string? nome { get; set; }
 }

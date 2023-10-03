@@ -29,7 +29,7 @@ builder.Services.AddCors(options => options.AddDefaultPolicy(builder =>
 
 var app = builder.Build();
 app.UseCors();
-app.UseMiddleware<JwtMiddleware>();
+// app.UseMiddleware<JwtMiddleware>();
 
 app.MapGet("/", () => "Hala Madrid!");
 
@@ -66,8 +66,8 @@ app.MapPost("/login", async (BancoDeDados dbContext, HttpContext context) =>
 
         if (response)
         {
-          User user = await dbContext.Users.FirstOrDefaultAsync(u => u.Email == email);
-          var token = JWT.GenerateToken(user.Id, user.Email, user.Matricula, user.Nome, user.CodLevel);
+          User user = await dbContext.Users.FirstOrDefaultAsync(u => u.email == email);
+          var token = JWT.GenerateToken(user.id, user.email, user.matricula, user.nome);
           return Results.Ok(new { token });
         }
         else
@@ -108,13 +108,13 @@ app.MapPost("/refreshToken", (BancoDeDados dbContext, HttpContext context) =>
     else
     {
 
-      if (user.Id == null || user.Matricula == null || user.Email == null || user.Nome == null)
+      if (user.id == null || user.matricula == null || user.email == null || user.nome == null)
       {
         return Results.BadRequest();
       }
       else
       {
-        var token = JWT.GenerateToken(user.Id, user.Email, user.Matricula, user.Nome, user.CodLevel);
+        var token = JWT.GenerateToken(user.id, user.email, user.matricula, user.nome);
         return Results.Ok(new { token });
       }
     }

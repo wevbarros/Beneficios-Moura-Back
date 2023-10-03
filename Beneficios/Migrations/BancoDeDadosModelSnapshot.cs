@@ -45,67 +45,23 @@ namespace Beneficios.Migrations
                     b.ToTable("beneficios");
                 });
 
-            modelBuilder.Entity("Level", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("Cod")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Descricao")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Levels");
-                });
-
             modelBuilder.Entity("User", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
+                    b.Property<string>("id")
+                        .HasColumnType("nvarchar(450)");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("CodLevel")
-                        .HasColumnType("int");
-
-                    b.Property<string>("Email")
+                    b.Property<string>("email")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Matricula")
+                    b.Property<string>("matricula")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("Nome")
+                    b.Property<string>("nome")
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("Id");
-
-                    b.HasIndex("CodLevel");
+                    b.HasKey("id");
 
                     b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("User", b =>
-                {
-                    b.HasOne("Level", "Level")
-                        .WithMany("Users")
-                        .HasForeignKey("CodLevel")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Level");
-                });
-
-            modelBuilder.Entity("Level", b =>
-                {
-                    b.Navigation("Users");
                 });
 #pragma warning restore 612, 618
         }

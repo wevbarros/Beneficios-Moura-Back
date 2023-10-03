@@ -8,7 +8,7 @@ namespace Beneficios.Utils;
 
 public static class JWT
 {
-  public static string GenerateToken(int id, string email, string matricula, string nome, int CodLevel)
+  public static string GenerateToken(string id, string email, string matricula, string nome)
   {
     var secretWord = ("sua-chave-secreta-com-pelo-menos-32-bytes");
     var issuer = "Moura pra você";
@@ -19,7 +19,7 @@ public static class JWT
       email = email,
       matricula = matricula,
       nome = nome,
-      codLevel = CodLevel
+      // codLevel = CodLevel
     };
 
     var claims = new[]
