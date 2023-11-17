@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "MfsMpVTsPdHLlJCdRJv31Xe5kFRTk+drdkc24+TXlrP0qs33ry7Z/yyzx8fYBpkTm52DpU/GX1Dae2IjrLbQsQ==",
+  "dgSpecHash": "Q87HagterIccwWx0ffixxYQ0XCDPvfbXYP61bKR8yoLxBAQL/uICzUrVl240Q0My3gfh+E7GUdXnIV/CspvysA==",
   "success": true,
-  "projectFilePath": "C:\\Users\\miros\\OneDrive\\Documentos\\Node\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
+  "projectFilePath": "C:\\Users\\miros\\Downloads\\Beneficios-Moura-Back\\Beneficios\\Beneficios.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\miros\\.nuget\\packages\\azure.core\\1.31.0\\azure.core.1.31.0.nupkg.sha512",
     "C:\\Users\\miros\\.nuget\\packages\\azure.identity\\1.6.0\\azure.identity.1.6.0.nupkg.sha512",
